@@ -1,0 +1,25 @@
+syntax = "proto2";
+package proto_dic;
+message TireTemperatureAddition{
+    optional	int32	            vehType                 =1;
+    optional	int32	            tyreCount               =2;
+    repeated    TireConditionItem   tireConditionItem       =3;
+}
+
+message TireConditionItem{
+    optional	int32	            tyreHorizontalPosition  =1;
+    optional	int32	            tyreVerticalPosition    =2;
+    optional	int32	            batteryStatus           =3;
+    optional	int32	            unBalance               =4;
+    optional	int32	            airLeakage              =5;
+    optional	int32	            highTemperature         =6;
+    optional	int32	            noRFSignal              =7;
+    optional	int32	            noMatch                 =8;
+    optional	int32	            tirePressureAlarm       =9;
+    optional	int32	            tyrePressure            =10;
+    optional	int32	            tyreTemperature         =11;
+    optional	int32	            temAlarmThreshold       =12;
+    optional	int32	            tyreHalarmThreshold     =13;
+    optional	int32	            tyreLalarmThreshold     =14;
+    optional	int32	            tyreNomimalValue        =15;
+}

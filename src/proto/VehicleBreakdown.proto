@@ -1,0 +1,9 @@
+syntax = "proto2";
+package proto_dic;
+message VehicleBreakdown{
+	required int32      breakdownSPNValue		= 1;
+	required int32		breakdownFMIValue	    = 2;
+    optional int32      spnChangeMode=3;
+    optional int32      faultsCount=4;
+    optional int32      faultType=5;
+}
