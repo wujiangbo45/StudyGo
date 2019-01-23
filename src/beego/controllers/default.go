@@ -18,15 +18,14 @@ func (c *MainController) Get() {
 }
 
 type Result interface {
-	SetData(sct interface{}) ResultStruct
-	SetMessage(msg string) ResultStruct
+	SetData() ResultStruct
 }
 
 type Success struct {
-	Result
+	sct interface{}
 }
 type Error struct {
-	Result
+	message string
 }
 type ResultStruct struct {
 	ResultCode int32       `json:"result_code"`
@@ -34,28 +33,25 @@ type ResultStruct struct {
 	Data       interface{} `json:"data"`
 }
 
-func (su Success) SetData(sct interface{}) ResultStruct {
-	return ResultStruct{ResultCode: 200, Message: "成功", Data: sct}
+func (su *Success) SetData() ResultStruct {
+	return ResultStruct{ResultCode: 200, Message: "成功", Data: su.sct}
 }
 
-func (er Error) SetMessage(msg string) ResultStruct {
-	return ResultStruct{ResultCode: 500, Message: msg, Data: nil}
+func (er *Error) SetData() ResultStruct {
+	return ResultStruct{ResultCode: 500, Message: er.message, Data: nil}
 }
 
 func (c *TestController) Get() {
 	var s = c.Ctx.Input.Param(":id")
 	var m Result
-	var res ResultStruct
 	if s == "0" {
-		m = Success{}
-		res = m.SetData(struct {
+		m = &Success{sct: struct {
 			Name string `json:"name"`
-		}{"wujiangbo"})
+		}{"wujiangbo"}}
 	} else {
-		m = Error{}
-		res = m.SetMessage("调用错误")
+		m = &Error{message: "错误"}
 	}
 
-	c.Data["json"] = res
+	c.Data["json"] = m.SetData()
 	c.ServeJSON()
 }
