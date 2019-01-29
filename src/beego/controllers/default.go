@@ -21,6 +21,9 @@ type Result interface {
 	SetData() ResultStruct
 }
 
+type ret struct {
+}
+
 type Success struct {
 	sct interface{}
 }
@@ -33,11 +36,11 @@ type ResultStruct struct {
 	Data       interface{} `json:"data"`
 }
 
-func (su *Success) SetData() ResultStruct {
+func (su Success) SetData() ResultStruct {
 	return ResultStruct{ResultCode: 200, Message: "成功", Data: su.sct}
 }
 
-func (er *Error) SetData() ResultStruct {
+func (er Error) SetData() ResultStruct {
 	return ResultStruct{ResultCode: 500, Message: er.message, Data: nil}
 }
 
